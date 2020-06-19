@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import List from './Components/List'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: ['Kaden', 'Katey', 'Kademan', 'Brock', 'Eliza', 'Cheetohs', 'Backflip', 'Break', 'Battles'],
+      filteredList: ['Kaden', 'Katey', 'Kademan', 'Brock', 'Eliza', 'Cheetohs', 'Backflip', 'Break', 'Battles'],
+    }
+  } 
+
+  handleInput(val) {
+    let newList = [];
+    if (val === '') {
+      newList = this.state.list;
+    } else {
+      newList = this.state.list.filter(name => name.includes(val));
+    }
+    this.setState({
+      filteredList: newList
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <input onChange={(e) => this.handleInput(e.target.value)}/>
+        <List list={this.state.filteredList}/>
+      </div>
+    );
+  }
 }
 
 export default App;
